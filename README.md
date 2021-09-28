@@ -13,15 +13,18 @@ npm install --save drupal-connector
 ## Usage
 
 ```tsx
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
-import MyComponent from 'drupal-connector'
-import 'drupal-connector/dist/index.css'
+import Drupal from 'drupal-connector';
 
-class Example extends Component {
-  render() {
-    return <MyComponent />
-  }
+const ConnectionDrupal = new Drupal({
+    baseUrl: 'http://drupal.dd:8083/',
+});
+
+const fetchData = () => {
+    const dataA = ConnectionDrupal.callAPI('node').get('94e611da-d83b-4d4d-aa4a-b69d00c00112', { bundle: "article" }).then((res) => {
+      return res
+    });
 }
 ```
 
