@@ -40,8 +40,7 @@ export class Configuration implements ConfigurationInterface {
   /**
    * Get the base url of the Drupal.
    *
-   * @return {string}
-   *   Return the base url of the Drupal.
+   * @return {string} Return the base url of the Drupal.
    */
   public get baseUrl(): string | undefined {
     return this.config.baseUrl;
@@ -50,8 +49,7 @@ export class Configuration implements ConfigurationInterface {
   /**
    * Get the base url of the Drupal.
    *
-   * @param  {string|undefined} url
-   *   The base url of the Drupal.
+   * @param  {string|undefined} url The base url of the Drupal.
    */
   public set baseUrl(baseUrl: string | undefined) {
     this.valueUpdate({ baseUrl });
@@ -60,8 +58,7 @@ export class Configuration implements ConfigurationInterface {
   /**
   * Update the configuration values.
   *
-  * @param {ConfigurationValuesInterface} config
-  *   The config to update.
+  * @param {ConfigurationValuesInterface} config The config to update.
   */
   public update(configValues: ConfigurationValuesInterface): void {
     this.config = configValues;
@@ -70,8 +67,7 @@ export class Configuration implements ConfigurationInterface {
   /**
    * Update partials of the configuration.
    *
-   * @param {Partial<ConfigurationValuesInterface>} config
-   *   The config to update.
+   * @param {Partial<ConfigurationValuesInterface>} config The config to update.
    */
   public valueUpdate(configValues: Partial<ConfigurationValuesInterface>): void {
     const configuration = {

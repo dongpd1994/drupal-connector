@@ -6,29 +6,25 @@ import {
 import { API, APIInterface } from 'src/api/API';
 import { EntityStorage } from 'src/schemes/entity/Entity';
 import { UserInfoInterface } from 'src/schemes/drupal/User';
-import { AuthProviderInterface } from 'src/authentication/BaseAuth';
-import { MainAuth } from 'src/authentication/MainAuth';
+import { Authentication, AuthenticationInterface } from 'src/authentication/Auth';
 import { RequestParams as RequestParamsType } from 'src/schemes/request/Request';
 import _ from 'lodash';
-
-interface AuthenticationInjectInterface {
-  api: APIInterface;
-}
 
 export class Drupal {
   public config: ConfigurationInterface;
   public api: APIInterface;
-  public auth: AuthProviderInterface;
+  public auth: AuthenticationInterface;
   public editableProps: {};
 
   /**
    * Constructor for the Connection class.
+   * 
    * @param options The options to process.
    */
-  constructor(options: ConfigurationOptionsInterface, { api }: AuthenticationInjectInterface,) {
+  constructor(options: ConfigurationOptionsInterface) {
     this.config = new Configuration(options);
     this.api = new API(this.config);
-    this.auth = new MainAuth(api);
+    this.auth = new Authentication(this.config, { api: this.api });
     this.editableProps = {
       config: this.config
     };
@@ -36,6 +32,7 @@ export class Drupal {
 
   /**
    * Call API Drupal
+   * 
    * @param entityType The entity type.
    * @param params The query parameters to process.
    * @returns The Prepared API Object.
@@ -46,6 +43,7 @@ export class Drupal {
 
   /**
    * Login request to Drupal
+   * 
    * @param user The username of the user.
    * @param password The password of the user.
    * @returns The promise of the api request.
@@ -56,6 +54,7 @@ export class Drupal {
 
   /**
    * Logout request to Drupal.
+   * 
    * @returns The promise of the api request.
    */
   public logoutDrupal(): Promise<any> {
