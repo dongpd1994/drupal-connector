@@ -15,30 +15,14 @@ export class MainAuth extends BaseAuth implements AuthProviderInterface {
    * Clear token.
    */
   private clearAuthToken = () => {
-    if (Storage.local.get(ACCESS_TOKEN)) {
-      Storage.local.remove(ACCESS_TOKEN);
-    }
-    if (Storage.session.get(ACCESS_TOKEN)) {
-      Storage.session.remove(ACCESS_TOKEN);
-    }
-    if (Storage.local.get(LOGOUT_TOKEN)) {
-      Storage.local.remove(LOGOUT_TOKEN);
-    }
-    if (Storage.session.get(LOGOUT_TOKEN)) {
-      Storage.session.remove(LOGOUT_TOKEN);
-    }
-    if (Storage.local.get(CSRF_TOKEN)) {
-      Storage.local.remove(CSRF_TOKEN);
-    }
-    if (Storage.session.get(CSRF_TOKEN)) {
-      Storage.session.remove(CSRF_TOKEN);
-    }
-    if (Storage.local.get(CURENT_USER)) {
-      Storage.local.remove(CURENT_USER);
-    }
-    if (Storage.session.get(CURENT_USER)) {
-      Storage.session.remove(CURENT_USER);
-    }
+    if (Storage.local.get(ACCESS_TOKEN)) Storage.local.remove(ACCESS_TOKEN);
+    if (Storage.session.get(ACCESS_TOKEN)) Storage.session.remove(ACCESS_TOKEN);
+    if (Storage.local.get(LOGOUT_TOKEN)) Storage.local.remove(LOGOUT_TOKEN);
+    if (Storage.session.get(LOGOUT_TOKEN)) Storage.session.remove(LOGOUT_TOKEN);
+    if (Storage.local.get(CSRF_TOKEN)) Storage.local.remove(CSRF_TOKEN);
+    if (Storage.session.get(CSRF_TOKEN)) Storage.session.remove(CSRF_TOKEN);
+    if (Storage.local.get(CURENT_USER)) Storage.local.remove(CURENT_USER);
+    if (Storage.session.get(CURENT_USER)) Storage.session.remove(CURENT_USER);
   };
 
   /**
