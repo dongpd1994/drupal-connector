@@ -5,8 +5,8 @@ export interface CurrentUserInterface {
 }
 
 export interface UserInfoInterface {
-  currentUser: CurrentUserInterface;
-  csrfToken: string;
-  logoutToken: string;
-  accessToken: string;
+  current_user: CurrentUserInterface;
+  csrf_token: string;
+  logout_token: string;
+  access_token: string;
 }
