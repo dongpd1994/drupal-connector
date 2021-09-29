@@ -27,9 +27,8 @@ export class API implements APIInterface {
 
   /**
    * Constructor of the API class.
-   *
-   * @param {ConfigurationInterface} config
-   *   The configuration to use.
+   * 
+   * @param config The configuration to use.
    */
   constructor(config: ConfigurationInterface) {
     this.config = config;
@@ -47,14 +46,10 @@ export class API implements APIInterface {
 
   /**
    * GET request.
-   *
-   * @param {string} endpoint
-   *   The endpoint to send the request to.
-   * @param {object} params
-   *   The extra query parameters to add in the request.
-   *
-   * @return {Promise}
-   *   Return a promise of the Axios Request.
+   * 
+   * @param endpoint The endpoint to send the request to.
+   * @param params The extra query parameters to add in the request.
+   * @returns Return a promise of the Axios Request.
    */
   get(endpoint: string, params = {}) {
     return this.request('get', endpoint, params);
@@ -62,36 +57,25 @@ export class API implements APIInterface {
 
   /**
    * POST request.
-   *
-   * @param {string} endpoint
-   *   The endpoint to send the request to.
-   * @param {object} body
-   *   The request body.
-   * @param {object} params
-   *   The extra query parameters to add in the request.
-   *
-   * @return {Promise}
-   *   Return a promise of the Axios Request.
+   * 
+   * @param endpoint The endpoint to send the request to.
+   * @param body The request body.
+   * @param params The extra query parameters to add in the request.
+   * @returns Return a promise of the Axios Request.
    */
   post(endpoint: string, body: {}, params = {}) {
     return this.request('post', endpoint, params, body);
   }
 
-
   /**
-   * @param {APIMethod} method
-   *   The request type. Choose get, post, put, patch or delete.
-   * @param {string} endpoint
-   *   The endpoint to perform the request to.
-   * @param {any} params
-   *   The extra query parameters to add in the request.
-   * @param {object} data
-   *   The data/body to add to the request.
-   * @param {object} headers
-   *   The extra headers to add to the request.
-   *
-   * @return {Promise}
-   *   Return a promise of the Axios Request.
+   * Handle request
+   * 
+   * @param method The request type. Choose get, post.
+   * @param endpoint The endpoint to perform the request to.
+   * @param params The extra query parameters to add in the request.
+   * @param data The data/body to add to the request.
+   * @param headers The extra headers to add to the request.
+   * @returns Return a promise of the Axios Request.
    */
   request(
     method: APIMethod,
@@ -144,6 +128,11 @@ export class API implements APIInterface {
           throw new APIError('API returned invalid JSON', {
             ...baseErrorInfo,
             code: 422,
+          });
+        } else if (error && error.response && error.response.status === 404 && error.response.statusText === "Not Found") {
+          throw new APIError('Not found API', {
+            ...baseErrorInfo,
+            code: 404,
           });
         } else {
           throw new APIError('Network error', {

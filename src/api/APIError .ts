@@ -74,9 +74,8 @@ export class APIError extends Error {
 
   /**
    * Convert to string.
-   *
-   * @return {string}
-   *   Returns the error string.w
+   * 
+   * @return {string} Returns the error string.
    */
   public toString() {
     return [
