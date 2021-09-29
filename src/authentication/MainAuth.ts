@@ -7,6 +7,7 @@ import _ from 'lodash';
 const ACCESS_TOKEN = 'access_token';
 const LOGOUT_TOKEN = 'logout_token';
 const CSRF_TOKEN = 'csrf_token';
+const CURENT_USER = 'current_user';
 
 export class MainAuth extends BaseAuth implements AuthProviderInterface {
 
@@ -32,6 +33,12 @@ export class MainAuth extends BaseAuth implements AuthProviderInterface {
     if (Storage.session.get(CSRF_TOKEN)) {
       Storage.session.remove(CSRF_TOKEN);
     }
+    if (Storage.local.get(CURENT_USER)) {
+      Storage.local.remove(CURENT_USER);
+    }
+    if (Storage.session.get(CURENT_USER)) {
+      Storage.session.remove(CURENT_USER);
+    }
   };
 
   /**
@@ -51,13 +58,15 @@ export class MainAuth extends BaseAuth implements AuthProviderInterface {
       .post('/user/login', body, { _format: 'json' })
       .then((json: UserInfoInterface) => {
         if (rememberMe) {
-          Storage.local.set(ACCESS_TOKEN, json.accessToken);
-          Storage.local.set(LOGOUT_TOKEN, json.logoutToken);
-          Storage.local.set(CSRF_TOKEN, json.csrfToken);
+          Storage.local.set(ACCESS_TOKEN, json.access_token);
+          Storage.local.set(LOGOUT_TOKEN, json.logout_token);
+          Storage.local.set(CSRF_TOKEN, json.csrf_token);
+          Storage.local.set(CURENT_USER, json.current_user);
         } else {
-          Storage.session.set(ACCESS_TOKEN, json.accessToken);
-          Storage.session.set(LOGOUT_TOKEN, json.logoutToken);
-          Storage.session.set(CSRF_TOKEN, json.csrfToken);
+          Storage.session.set(ACCESS_TOKEN, json.access_token);
+          Storage.session.set(LOGOUT_TOKEN, json.logout_token);
+          Storage.session.set(CSRF_TOKEN, json.csrf_token);
+          Storage.session.set(CURENT_USER, json.current_user);
         }
         return json;
       });
