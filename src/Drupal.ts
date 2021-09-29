@@ -60,4 +60,26 @@ export class Drupal {
   public logoutDrupal(): Promise<any> {
     return this.auth.logout();
   }
+
+   /**
+   * Get content by alias URL.
+   * You must install module "Decoupled Router" (https://www.drupal.org/project/decoupled_router), 
+   * "Subrequests" (https://www.drupal.org/project/subrequests), 
+   * and module "drupal_connector_helper" of drupal.
+   * 
+   * @param aliasUrl Alias of url
+   * @returns 
+   */
+  public getRouter(aliasUrl: string) {
+    const body = [
+      {
+        "requestId": "router",
+        "uri": `router/translate-path?path=/${aliasUrl}&_format=json`,
+        "action": "view"
+      }
+    ]
+    return this.api.post('/subrequests', body, { _format: 'json' }).then((res) => {
+      return JSON.parse(_.get(res, "router.body"));
+    })
+  }
 }
