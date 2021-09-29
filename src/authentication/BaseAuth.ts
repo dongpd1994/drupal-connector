@@ -11,6 +11,7 @@ export class BaseAuth {
 
   /**
    * Creates a new authentication instance.
+   * 
    * @param api The API Class.
    */
   constructor(api: APIInterface) {

@@ -36,6 +36,7 @@ export class MainAuth extends BaseAuth implements AuthProviderInterface {
 
   /**
    * Handle call API login.
+   * 
    * @param user The username of the user.
    * @param password The password of the user.
    * @returns The promise of the api request.
@@ -64,14 +65,10 @@ export class MainAuth extends BaseAuth implements AuthProviderInterface {
 
   /**
    * Perform login request.
-   *
-   * @param {string} username
-   *   The username of the user.
-   * @param {string} password
-   *   The password of the user.
-   *
-   * @return {Promise}
-   *   The promise of the api request.
+   * 
+   * @param {string} username The username of the user.
+   * @param {string} password The password of the user.
+   * @return {Promise} The promise of the api request.
    */
   public logout(): Promise<any> {
     const logoutToken = Storage.session.get(LOGOUT_TOKEN);
