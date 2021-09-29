@@ -21,10 +21,8 @@ const ConnectionDrupal = new Drupal({
     baseUrl: 'http://drupal.dd:8083/',
 });
 
-const fetchData = () => {
-    const dataA = ConnectionDrupal.callAPI('node').get('94e611da-d83b-4d4d-aa4a-b69d00c00112', { bundle: "article" }).then((res) => {
-      return res
-    });
+const fetchData = async() => {
+    const dataA = await ConnectionDrupal.callAPI('node').get('94e611da-d83b-4d4d-aa4a-b69d00c00112', { bundle: "article" });
 }
 ```
 
