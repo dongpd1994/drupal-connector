@@ -1,7 +1,7 @@
-import { ConfigurationInterface } from '../Configuration';
-import { APIInterface } from '../api/API';
-import { RequestParams } from '../schemes/request/Request';
-import { APIError } from '../api/APIError ';
+import { ConfigurationInterface } from 'src/Configuration';
+import { APIInterface } from 'src/api/API';
+import { RequestParams } from 'src/schemes/request/Request';
+import { APIError } from 'src/api/APIError ';
 import _ from 'lodash';
 
 export class EntityStorage {
