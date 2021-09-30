@@ -7,7 +7,7 @@ interface RequestParametersInterface {
   limit: number;
   offset: number;
   sort: string | string[];
-  filters: FilterParams[] | FilterParams;
+  filter: FilterParams[] | FilterParams;
   groups: GroupParams[] | GroupParams;
   comment: string;
 }
