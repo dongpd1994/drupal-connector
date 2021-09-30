@@ -3,11 +3,11 @@ import {
   ConfigurationInterface,
   ConfigurationOptionsInterface,
 } from './Configuration';
-import { API, APIInterface } from 'src/api/API';
-import { EntityStorage } from 'src/schemes/entity/Entity';
-import { UserInfoInterface } from 'src/schemes/drupal/User';
-import { Authentication, AuthenticationInterface } from 'src/authentication/Auth';
-import { RequestParams as RequestParamsType } from 'src/schemes/request/Request';
+import { API, APIInterface } from './api/API';
+import { EntityStorage } from './schemes/entity/Entity';
+import { UserInfoInterface } from './schemes/drupal/User';
+import { Authentication, AuthenticationInterface } from './authentication/Auth';
+import { RequestParams as RequestParamsType } from './schemes/request/Request';
 import _ from 'lodash';
 
 export class Drupal {
