@@ -5,7 +5,7 @@
 import axios, { AxiosInstance } from 'axios';
 import { APIError } from './APIError ';
 import { ConfigurationInterface } from 'src/Configuration';
-import Qs from "querystring";
+import { querify } from '../utils/querify';
 import _ from 'lodash';
 
 export type APIMethod = 'get' | 'post';
@@ -34,9 +34,7 @@ export class API implements APIInterface {
     this.config = config;
 
     const axiosOptions = {
-      paramsSerializer: function (params: any) {
-        return Qs.stringify(params)
-      },
+      paramsSerializer: querify,
       timeout: 10 * 60 * 1000,
       withCredentials: true,
     };
