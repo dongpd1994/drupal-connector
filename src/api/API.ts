@@ -4,7 +4,7 @@
 
 import axios, { AxiosInstance } from 'axios';
 import { APIError } from './APIError ';
-import { ConfigurationInterface } from 'src/Configuration';
+import { ConfigurationInterface } from '../Configuration';
 import { querify } from '../utils/querify';
 import _ from 'lodash';
 
