@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 /* eslint-disable @typescript-eslint/ban-types */
 export type QueriForm = (
   key: string,
@@ -28,13 +30,13 @@ export function querify(
   const qs: string[] = [];
 
   if (Array.isArray(obj)) {
-    obj.forEach((e, i) => {
+    obj.forEach((e) => {
       qs.push(querify(e, prefix));
     })
   } else {
     Object.keys(obj).forEach((prop: string) => {
       const key = prefix ? `${prefix}[${prop}]` : prop;
-      const value = obj[prop];
+      const value = _.get(obj, prop);
 
       qs.push(
         value !== null && typeof value === 'object'
