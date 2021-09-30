@@ -1,4 +1,5 @@
-import { FilterInterface } from 'src/schemes/request/Filter';
+import { FilterParams } from './Filter';
+import { GroupParams } from './Group';
 
 interface RequestParametersInterface {
   bundle?: string;
@@ -6,8 +7,8 @@ interface RequestParametersInterface {
   limit: number;
   offset: number;
   sort: string | string[];
-  filter: FilterInterface;
-  groups: string | string[];
+  filters: FilterParams[] | FilterParams;
+  groups: GroupParams[] | GroupParams;
   comment: string;
 }
 
