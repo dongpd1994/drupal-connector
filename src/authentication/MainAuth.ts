@@ -1,7 +1,6 @@
 import { UserInfoInterface } from '../schemes/drupal/User';
 import { AuthProviderInterface, BaseAuth } from '../authentication/BaseAuth';
 import { APIError } from '../api/APIError ';
-import { Storage } from 'react-jhipster';
 import _ from 'lodash';
 
 const ACCESS_TOKEN = 'access_token';
@@ -15,14 +14,14 @@ export class MainAuth extends BaseAuth implements AuthProviderInterface {
    * Clear token.
    */
   private clearAuthToken = () => {
-    if (Storage.local.get(ACCESS_TOKEN)) Storage.local.remove(ACCESS_TOKEN);
-    if (Storage.session.get(ACCESS_TOKEN)) Storage.session.remove(ACCESS_TOKEN);
-    if (Storage.local.get(LOGOUT_TOKEN)) Storage.local.remove(LOGOUT_TOKEN);
-    if (Storage.session.get(LOGOUT_TOKEN)) Storage.session.remove(LOGOUT_TOKEN);
-    if (Storage.local.get(CSRF_TOKEN)) Storage.local.remove(CSRF_TOKEN);
-    if (Storage.session.get(CSRF_TOKEN)) Storage.session.remove(CSRF_TOKEN);
-    if (Storage.local.get(CURENT_USER)) Storage.local.remove(CURENT_USER);
-    if (Storage.session.get(CURENT_USER)) Storage.session.remove(CURENT_USER);
+    if (localStorage.getItem(ACCESS_TOKEN)) localStorage.removeItem(ACCESS_TOKEN);
+    if (sessionStorage.getItem(ACCESS_TOKEN)) sessionStorage.removeItem(ACCESS_TOKEN);
+    if (localStorage.getItem(LOGOUT_TOKEN)) localStorage.removeItem(LOGOUT_TOKEN);
+    if (sessionStorage.getItem(LOGOUT_TOKEN)) sessionStorage.removeItem(LOGOUT_TOKEN);
+    if (localStorage.getItem(CSRF_TOKEN)) localStorage.removeItem(CSRF_TOKEN);
+    if (sessionStorage.getItem(CSRF_TOKEN)) sessionStorage.removeItem(CSRF_TOKEN);
+    if (localStorage.getItem(CURENT_USER)) localStorage.removeItem(CURENT_USER);
+    if (sessionStorage.getItem(CURENT_USER)) sessionStorage.removeItem(CURENT_USER);
   };
 
   /**
@@ -42,15 +41,15 @@ export class MainAuth extends BaseAuth implements AuthProviderInterface {
       .post('/user/login', body, { _format: 'json' })
       .then((json: UserInfoInterface) => {
         if (rememberMe) {
-          Storage.local.set(ACCESS_TOKEN, json.access_token);
-          Storage.local.set(LOGOUT_TOKEN, json.logout_token);
-          Storage.local.set(CSRF_TOKEN, json.csrf_token);
-          Storage.local.set(CURENT_USER, json.current_user);
+          localStorage.setItem(ACCESS_TOKEN, json.access_token);
+          localStorage.setItem(LOGOUT_TOKEN, json.logout_token);
+          localStorage.setItem(CSRF_TOKEN, json.csrf_token);
+          localStorage.setItem(CURENT_USER, JSON.stringify(json.current_user));
         } else {
-          Storage.session.set(ACCESS_TOKEN, json.access_token);
-          Storage.session.set(LOGOUT_TOKEN, json.logout_token);
-          Storage.session.set(CSRF_TOKEN, json.csrf_token);
-          Storage.session.set(CURENT_USER, json.current_user);
+          sessionStorage.setItem(ACCESS_TOKEN, json.access_token);
+          sessionStorage.setItem(LOGOUT_TOKEN, json.logout_token);
+          sessionStorage.setItem(CSRF_TOKEN, json.csrf_token);
+          sessionStorage.setItem(CURENT_USER, JSON.stringify(json.current_user));
         }
         return json;
       });
@@ -64,14 +63,14 @@ export class MainAuth extends BaseAuth implements AuthProviderInterface {
    * @return {Promise} The promise of the api request.
    */
   public logout(): Promise<any> {
-    const logoutToken = Storage.session.get(LOGOUT_TOKEN);
+    const logoutToken = sessionStorage.getItem(LOGOUT_TOKEN) || localStorage.getItem(LOGOUT_TOKEN);
     return this.api
       .post('/user/logout', {}, { _format: 'json', token: logoutToken })
       .catch((error) => {
         const baseErrorInfo = {
           url: "/user/logout",
           method: "post",
-          params: logoutToken,
+          params: { logoutToken },
           message: error.response.data || "",
           code: error.response.status || -1,
         };
