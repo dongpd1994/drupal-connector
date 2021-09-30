@@ -1,4 +1,4 @@
-import { APIInterface } from 'src/api/API';
+import { APIInterface } from '../api/API';
 
 export interface AuthProviderInterface {
   api: APIInterface;
