@@ -1,6 +1,6 @@
-import { UserInfoInterface } from 'src/schemes/drupal/User';
-import { ConfigurationInterface } from 'src/Configuration';
-import { APIInterface } from 'src/api/API';
+import { UserInfoInterface } from '../schemes/drupal/User';
+import { ConfigurationInterface } from '../Configuration';
+import { APIInterface } from '../api/API';
 import { MainAuth } from './MainAuth';
 import { AuthProviderInterface } from './BaseAuth';
 
