@@ -23,7 +23,7 @@ const ConnectionDrupal = new Drupal({
 
 const fetchData = async() => {
     const node = await ConnectionDrupal.callAPI('node').get('94e611da-d83b-4d4d-aa4a-b69d00c00112', { bundle: "article" });
-    const oprionNode = await ConnectionDrupal.callAPI('node').getAll(
+    const optionNode = await ConnectionDrupal.callAPI('node').getAll(
       {
         bundle: "article",
         filters: [
