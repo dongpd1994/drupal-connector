@@ -16,6 +16,7 @@ interface RequiredFilterDataInterface {
 interface OptionalFilterDataInterface {
   operator: FilterOperator;
   path: string;
+  memberOf: string;
 }
 
 export interface FilterDataInterface
@@ -24,4 +25,8 @@ export interface FilterDataInterface
 
 export interface FilterInterface {
   [key: string]: TypeValue | FilterDataInterface;
+}
+
+export interface FilterParams {
+  [condition: string]: FilterInterface;
 }
