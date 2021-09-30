@@ -22,7 +22,22 @@ const ConnectionDrupal = new Drupal({
 });
 
 const fetchData = async() => {
-    const dataA = await ConnectionDrupal.callAPI('node').get('94e611da-d83b-4d4d-aa4a-b69d00c00112', { bundle: "article" });
+    const node = await ConnectionDrupal.callAPI('node').get('94e611da-d83b-4d4d-aa4a-b69d00c00112', { bundle: "article" });
+    const oprionNode = await ConnectionDrupal.callAPI('node').getAll(
+      {
+        bundle: "article",
+        filters: [
+          { name_1: { value: "value 1", operator: "CONTAINS", path: "body.value", memberOf:"g_1" } },
+          { name_2: { value: "value 2", operator: "CONTAINS", path: "path1", memberOf:"g_2"  } }],
+        groups: [
+          {g_1 : {group: {conjunction: "OR"}}},
+          {g_2 : {group: {memberOf: "g_1", conjunction: "AND"}}}
+        ],
+        limit: 10,
+        offset: 1,
+        sort: "-body"
+      })
+  }
 }
 ```
 
