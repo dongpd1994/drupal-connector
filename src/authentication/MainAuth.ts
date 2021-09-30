@@ -1,6 +1,6 @@
-import { UserInfoInterface } from 'src/schemes/drupal/User';
-import { AuthProviderInterface, BaseAuth } from 'src/authentication/BaseAuth';
-import { APIError } from 'src/api/APIError ';
+import { UserInfoInterface } from '../schemes/drupal/User';
+import { AuthProviderInterface, BaseAuth } from '../authentication/BaseAuth';
+import { APIError } from '../api/APIError ';
 import { Storage } from 'react-jhipster';
 import _ from 'lodash';
 
