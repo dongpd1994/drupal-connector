@@ -26,7 +26,7 @@ const fetchData = async() => {
     const optionNode = await ConnectionDrupal.callAPI('node').getAll(
       {
         bundle: "article",
-        filters: [
+        filter: [
           { name_1: { value: "value 1", operator: "CONTAINS", path: "body.value", memberOf:"g_1" } },
           { name_2: { value: "value 2", operator: "CONTAINS", path: "path1", memberOf:"g_2"  } }],
         groups: [
