@@ -1,5 +1,3 @@
-
-
 type GroupConjunction = "AND" | "OR";
 
 interface RequiredGroupDataInterface {
