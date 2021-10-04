@@ -125,4 +125,29 @@ export class EntityStorage {
     });
     return dataAllNode;
   }
+
+  /**
+   * Create entity
+   * @param body The body of the request.
+   * @param relationships The relationships of the request.
+   * @param inputParams The inputParams of the request.
+   * @returns The promise of the request.
+   */
+  create(body: { attributes: { [key: string]: any }, relationships?: { [key: string]: any } }, inputParams: RequestParams = {}) {
+    const { bundle, ...params } = this.processParams(inputParams);
+
+    const data = {
+      data: {
+        type: `${this.entityType}--${bundle}`,
+        attributes: body.attributes,
+        relationships: _.get(body, 'relationships') ? body.relationships : null
+      },
+    };
+
+    return this.api.post(
+      `jsonapi/${this.entityType}/${bundle}`,
+      data,
+      params,
+    );
+  }
 }
