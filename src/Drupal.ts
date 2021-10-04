@@ -9,6 +9,8 @@ import { UserInfoInterface } from './schemes/drupal/User';
 import { Authentication, AuthenticationInterface } from './authentication/Auth';
 import { RequestParams as RequestParamsType } from './schemes/request/Request';
 import _ from 'lodash';
+import { ResponseNodeByRouterInterface } from './schemes/response/Response';
+import { parserJSON } from './utils/common';
 
 export class Drupal {
   public config: ConfigurationInterface;
@@ -26,7 +28,8 @@ export class Drupal {
     this.api = new API(this.config);
     this.auth = new Authentication(this.config, { api: this.api });
     this.editableProps = {
-      config: this.config
+      config: this.config,
+      api: this.api
     };
   }
 
@@ -61,11 +64,10 @@ export class Drupal {
     return this.auth.logout();
   }
 
-   /**
-   * Get content by alias URL.
+  /**
+   * Get content information by alias URL.
    * You must install module "Decoupled Router" (https://www.drupal.org/project/decoupled_router), 
-   * "Subrequests" (https://www.drupal.org/project/subrequests), 
-   * and module "drupal_connector_helper" of drupal.
+   * "Subrequests" (https://www.drupal.org/project/subrequests).
    * 
    * @param aliasUrl Alias of url
    * @returns 
@@ -79,7 +81,54 @@ export class Drupal {
       }
     ]
     return this.api.post('/subrequests', body, { _format: 'json' }).then((res) => {
-      return JSON.parse(_.get(res, "router.body"));
+      return parserJSON(_.get(res, "router.body"));
+    })
+  }
+
+  /**
+   * Get content by alias URL.
+   * You must install module "Decoupled Router" (https://www.drupal.org/project/decoupled_router), 
+   * "Subrequests" (https://www.drupal.org/project/subrequests), 
+   * and module "drupal_connector_helper" of drupal.
+   * 
+   * @param aliasUrl Alias of url
+   * @returns 
+   */
+  public getNodeByRouter(aliasUrl: string): Promise<ResponseNodeByRouterInterface> {
+    const body = [
+      {
+        "requestId": "router",
+        "uri": `router/translate-path?path=/${aliasUrl}&_format=json`,
+        "action": "view"
+      },
+      {
+        "requestId": "getMedia",
+        "uri": "/api/get-media-fields/{{router.body@$.entity.bundle}}?_format=json",
+        "action": "view",
+        "waitFor": [
+          "router"
+        ]
+      },
+      {
+        "action": "view",
+        "requestId": "getData",
+        "uri": "{{router.body@$.jsonapi.individual}}?include={{getMedia.body@$.data}}",
+        "headers": {
+          "Content-Type": "application/vnd.api+json",
+          "Accept": "application/vnd.api+json"
+        },
+        "waitFor": [
+          "router",
+          "getMedia"
+        ]
+      }
+    ]
+    return this.api.post('/subrequests?_format=json', body).then((res) => {
+      return {
+        router: parserJSON(_.get(res, "router.body")),
+        includeField: parserJSON(_.get(res, "getMedia#uri{0}.body")),
+        data: parserJSON(_.get(res, "getData#uri{0}.body"))
+      };
     })
   }
 }
