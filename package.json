@@ -1,6 +1,6 @@
 {
   "name": "drupal-connector",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "The Drupal-connector is a helper package for calling Drupal Back-end, and more features.",
   "author": "dongpd1994",
   "license": "MIT",
