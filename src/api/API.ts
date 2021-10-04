@@ -6,6 +6,7 @@ import axios, { AxiosInstance } from 'axios';
 import { APIError } from './APIError ';
 import { ConfigurationInterface } from '../Configuration';
 import { querify } from '../utils/querify';
+import _ from 'lodash';
 
 export type APIMethod = 'get' | 'post';
 
@@ -96,9 +97,10 @@ export class API implements APIInterface {
       method,
       params,
       url: endpoint,
-      withCredentials: false,
+      withCredentials: true,
     };
 
+    if (!_.isEmpty(_.get(params, "token"))) requestOptions.headers['X-CSRF-Token'] = _.get(params, "token");
     requestOptions.headers['Content-Type'] = 'application/vnd.api+json';
     return this.xhr
       .request(requestOptions)
