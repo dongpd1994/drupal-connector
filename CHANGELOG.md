@@ -4,7 +4,7 @@
 ### Features
 
 * Add field component.
-* Add API get sesion token, request password and register account.
+* Add API get session token, request password and register account.
 
 ### Bug Fixes
 
