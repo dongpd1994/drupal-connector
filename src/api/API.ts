@@ -100,8 +100,8 @@ export class API implements APIInterface {
       withCredentials: true,
     };
 
-    if (!_.isEmpty(_.get(params, "token"))) requestOptions.headers['X-CSRF-Token'] = _.get(params, "token");
-    requestOptions.headers['Content-Type'] = 'application/vnd.api+json';
+    requestOptions.headers['Content-Type'] = method === "post" ? 'application/json' : 'application/vnd.api+json';
+
     return this.xhr
       .request(requestOptions)
       .then((res) => {
