@@ -3,8 +3,8 @@ import { NodeIncludedInterface } from '../response/Node';
 
 interface FieldDataInterface {
   value: any;
-  include?: NodeIncludedInterface[];
-  settingField?: {};
+  include: NodeIncludedInterface[];
+  settingField: {};
 }
 
 interface FieldOptionsInterface {
