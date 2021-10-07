@@ -1,7 +1,6 @@
 # drupal-connector
 
 > The Drupal-connector is a helper package for calling Drupal Back-end, and more features.
-> This package was created for our personal project, so the functionality we reworked serves the work I'm doing. 
 
 [![NPM](https://img.shields.io/npm/v/drupal-connector.svg)](https://www.npmjs.com/package/drupal-connector) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
@@ -40,6 +39,68 @@ const fetchData = async() => {
       })
   }
 }
+```
+
+getNodeByRouter:
+
+- Your front-end page should be a Drupal subdomain.
+- Install module in Drupal:
+  1. "Decoupled Router" (https://www.drupal.org/project/decoupled_router)
+  2. "Subrequests" (https://www.drupal.org/project/subrequests)
+  ```bash
+    composer require drupal/subrequests
+  ```
+  3. drupal_connector_helper (https://github.com/dongpd1994/drupal_connector_helper)
+
+```tsx
+import React, { Component } from 'react'
+
+import Drupal from 'drupal-connector'
+
+const ConnectionDrupal = new Drupal({
+  baseUrl: 'http://drupal.dd:8083/'
+})
+
+const fetchData = async () => {
+  const node = await ConnectionDrupal.getNodeByRouter('alias-url')
+    .catch((error) => {
+      console.log(error.message)
+    })
+    .then((response) => {
+      return response
+    })
+}
+```
+
+Field component:
+
+## Configuration
+
+| Name                | Description                                                  | Type    | Required |
+| ------------------- | ------------------------------------------------------------ | ------- | -------- |
+| include             | The included response of API get content data                | object  | false    |
+| settingField        | Setting of field                                             | object  | false    |
+| value               | The value of field                                           | object  | true     |
+| basePath            | If field is image, file then basePath is url of Drupal       | string  | false    |
+
+```jsx
+import React, { Component } from 'react';
+
+import Drupal, { FieldBoolean } from 'drupal-connector';
+
+ ...
+
+render(
+  <FieldBoolean
+    data={{
+    include: {},
+      settingField: {},
+      value: {}
+    }}
+    basePath="http://drupal.web.dd:8083"
+  />
+)
+
 ```
 
 ## License
