@@ -7,7 +7,7 @@ function FieldFile(props: FieldInterface) {
   const renderDefault = function () {
     if (_.isEmpty(props.data.value)) return null;
     const fileData = [];
-    const path = _.isEmpty(props.basePath) ? CMS_HOST : ((!props.basePath.endsWith('/')) ? props.basePath += '/' : props.basePath);
+    const path = _.isEmpty(props.basePath) ? CMS_HOST : ((!_.endsWith(_.get(props, 'basePath'), '/')) ? props.basePath += '/' : props.basePath);
     if (_.isArray(props.data.value)) {
       fileData.push(...props.data.value);
       return (
