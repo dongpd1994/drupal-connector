@@ -24,7 +24,7 @@ export interface ConfigurationValuesInterface {
 
 export class Configuration implements ConfigurationInterface {
   public defaultValue: ConfigurationDefaultsInterface = {
-    baseUrl: "http://drupal.dd:8083/",
+    baseUrl: "http://web.dd:8083/",
     methods: {},
   }
 
