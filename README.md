@@ -78,8 +78,7 @@ Field component:
 
 | Name                | Description                                                  | Type    | Required |
 | ------------------- | ------------------------------------------------------------ | ------- | -------- |
-| include             | The included response of API get content data                | object  | false    |
-| settingField        | Setting of field                                             | object  | false    |
+| include             | The included response of API get content data                | object  | true     |
 | value               | The value of field                                           | object  | true     |
 | basePath            | If field is image, file then basePath is url of Drupal       | string  | false    |
 
@@ -93,8 +92,7 @@ import Drupal, { FieldBoolean } from 'drupal-connector';
 render(
   <FieldBoolean
     data={{
-    include: {},
-      settingField: {},
+      include: {},
       value: {}
     }}
     basePath="http://drupal.web.dd:8083"
