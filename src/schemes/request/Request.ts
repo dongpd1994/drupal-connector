@@ -1,4 +1,4 @@
-import {  FilterParams } from './Filter';
+import { FilterParams } from './Filter';
 import { GroupParams } from './Group';
 
 interface RequestParametersInterface {
@@ -10,7 +10,7 @@ interface RequestParametersInterface {
   filter: FilterParams[] | FilterParams;
   groups: GroupParams[] | GroupParams;
   comment: string;
-  token: string;
+  "X-CSRF-Token": string;
 }
 
 export type RequestParams = Partial<RequestParametersInterface>;
