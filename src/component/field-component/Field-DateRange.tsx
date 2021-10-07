@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 function FieldDateRange(props: FieldInterface) {
   const renderDefault = function () {
-    if (_.isEmpty(props.data.value)) return <></>;
+    if (_.isEmpty(props.data.value)) return null;
     const displayValue = _.isArray(props.data.value) ?
       <div className="field__items">
         {props.data.value.map((e, i) => <div className="field__item" key={i}><time className="datetime">{_.get(e, "value")}</time>～{' '}<time className="datetime">{_.get(e, "end_value")}</time></div>)}

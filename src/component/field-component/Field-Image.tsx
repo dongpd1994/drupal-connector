@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 function FieldImage(props: FieldInterface) {
   const renderDefault = function () {
-    if (_.isEmpty(props.data.value)) return <></>;
+    if (_.isEmpty(props.data.value)) return null;
     const imageData = [];
     const path = _.isEmpty(props.basePath) ? CMS_HOST : ((!props.basePath.endsWith('/')) ? props.basePath += '/' : props.basePath);
     if (_.isArray(props.data.value)) {

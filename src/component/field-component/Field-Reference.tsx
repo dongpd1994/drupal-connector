@@ -19,18 +19,18 @@ function FieldReference(props: FieldInterface) {
           {referenceData.map(e => {
             const pos = props.data.include.findIndex(o => o.id === e.id);
             if (pos < 0) {
-              return <></>;
+              return null;
             }
             let url = '';
             const type = _.get(props.data.include[pos], 'type');
             let displayContent = '';
-            if (type.startsWith('user')) {
+            if (_.startsWith(type, 'user')) {
               displayContent = _.get(props.data.include[pos], 'attributes.name');
               url = `${path}user/${_.get(props.data.include[pos], 'attributes.drupal_internal__uid')}`;
-            } else if (type.startsWith('node')) {
+            } else if (_.startsWith(type, 'node')) {
               displayContent = _.get(props.data.include[pos], 'attributes.title');
               url = `${path}node/${_.get(props.data.include[pos], 'attributes.drupal_internal__nid')}`;
-            } else if (type.startsWith('taxonomy_term')) {
+            } else if (_.startsWith(type, 'taxonomy_term')) {
               displayContent = _.get(props.data.include[pos], 'attributes.name');
               url = `${path}taxonomy/term/${_.get(props.data.include[pos], 'attributes.drupal_internal__tid')}`;
             }

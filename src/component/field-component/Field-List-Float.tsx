@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 function FieldListFloat(props: FieldInterface) {
   const renderDefault = function () {
-    if (!_.isNumber(props.data.value) && _.isEmpty(props.data.value)) return <></>;
+    if (!_.isNumber(props.data.value) && _.isEmpty(props.data.value)) return null;
     const displayValue = _.isArray(props.data.value)
       ? <div className="field__items">{props.data.value.map((e, i) => <div className="field__item" key={i}>{e}</div>)}</div>
       : <div className="field__item">{props.data.value}</div>;

@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 function FieldLink(props: FieldInterface) {
   const renderDefault = function () {
-    if (_.isEmpty(props.data.value)) return <></>;
+    if (_.isEmpty(props.data.value)) return null;
     const displayValue = _.isArray(props.data.value)
       ? <div className="field__items">
         {props.data.value.map((e, i) => <div className="field__item" key={i}><a href={_.get(e, 'uri')}>{_.get(e, 'title')}</a></div>)}

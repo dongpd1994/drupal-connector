@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 function FieldDate(props: FieldInterface) {
   const renderDefault = function () {
-    if (_.isEmpty(props.data.value)) return <></>;
+    if (_.isEmpty(props.data.value)) return null;
     const displayValue = _.isArray(props.data.value) ?
       <div className="field__items">
         {
