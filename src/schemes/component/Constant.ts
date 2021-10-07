@@ -1,4 +1,4 @@
-export const CMS_HOST = "http://web.dd:8084/";
+export const CMS_HOST = "http://web.dd:8083/";
 
 export const DEFINE_FIELD_TYPE = {
   BOOLEAN: 'boolean',
