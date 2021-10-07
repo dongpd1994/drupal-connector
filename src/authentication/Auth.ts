@@ -3,6 +3,7 @@ import { ConfigurationInterface } from '../Configuration';
 import { APIInterface } from '../api/API';
 import { MainAuth } from './MainAuth';
 import { AuthProviderInterface } from './BaseAuth';
+import { RegisterUserResponseInterface } from '../schemes/response/Response';
 
 export interface AuthenticationInterface {
   api: APIInterface;
@@ -13,6 +14,16 @@ export interface AuthenticationInterface {
     rememberMe: boolean,
   ): Promise<UserInfoInterface>;
   logout(): Promise<any>;
+  sesisonToken(): Promise<string>;
+  requestPassword(
+    account: string,
+    isEmail: boolean
+  ): Promise<any>;
+  registerAccount(
+    username: string,
+    email: string,
+    password?: string
+  ): Promise<RegisterUserResponseInterface>;
 }
 
 interface AuthenticationInjectInterface {
@@ -71,6 +82,35 @@ export class Authentication {
    */
   public logout(): Promise<any> {
     return this.auth.logout();
+  }
+
+  /**
+   * Get session token
+   * @returns string token
+   */
+  public sesisonToken(): Promise<string> {
+    return this.auth.sesisonToken();
+  }
+
+  /**
+   * Reset password request.
+   * @param account Username or email of user.
+   * @param isEmail Deffault is false (reset password by username). If is true, reset password by email account.
+   * @returns The promise of the api request.
+   */
+  public requestPassword(account: string, isEmail: boolean): Promise<any> {
+    return this.auth.requestPassword(account, isEmail);
+  }
+
+  /**
+   * Register account
+   * @param username Username of request.
+   * @param email Email of request.
+   * @param password Password of request.
+   * @returns The promise of the api request.
+   */
+  public registerAccount(username: string, email: string, password?: string): Promise<RegisterUserResponseInterface> {
+    return this.auth.registerAccount(username, email, password);
   }
 
 }

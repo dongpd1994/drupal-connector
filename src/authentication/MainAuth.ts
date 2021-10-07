@@ -1,6 +1,7 @@
 import { UserInfoInterface } from '../schemes/drupal/User';
 import { AuthProviderInterface, BaseAuth } from '../authentication/BaseAuth';
 import { APIError } from '../api/APIError ';
+import { RegisterUserResponseInterface } from '../schemes/response/Response';
 import _ from 'lodash';
 
 const ACCESS_TOKEN = 'access_token';
@@ -85,5 +86,60 @@ export class MainAuth extends BaseAuth implements AuthProviderInterface {
         this.clearAuthToken();
         return json;
       });
+  }
+
+  /**
+   * Get session token
+   * @returns string token
+   */
+  public sesisonToken(): Promise<string> {
+    return this.api
+      .post('/session/token', {}, { _format: 'json' })
+      .catch((error) => {
+        const baseErrorInfo = {
+          url: "/session/token",
+          method: "post",
+          params: {},
+          message: error.response.data || "",
+          code: error.response.status || -1,
+        };
+        throw new APIError('Something wrong!!! Please check Drupal.', {
+          ...baseErrorInfo,
+          code: 0,
+        });
+      })
+      .then((res: string) => {
+        return res;
+      })
+  }
+
+  /**
+   * Reset password request.
+   * @param account Username or email of user.
+   * @param isEmail Deffault is false (reset password by username). If is true, reset password by email account.
+   * @returns The promise of the api request.
+   */
+  public requestPassword(account: string, isEmail = false): Promise<any> {
+    const body = isEmail ? { mail: account } : { name: account };
+    return this.api
+      .post('/user/password?_format=json', body);
+  }
+
+  /**
+   * Register account
+   * @param username Username of request.
+   * @param email Email of request.
+   * @param password Password of request.
+   * @returns The promise of the api request.
+   */
+  public registerAccount(username: string, email: string, password?: string): Promise<RegisterUserResponseInterface> {
+    const body = _.isEmpty(password) ?
+      { name: [{ value: username }], mail: [{ value: email }] } :
+      { name: [{ value: username }], mail: [{ value: email }], pass: [{ value: password }] };
+    return this.api
+      .post('/user/register', body, { _format: "json" })
+      .then((res: RegisterUserResponseInterface) => {
+        return res;
+      })
   }
 }
