@@ -1,6 +1,7 @@
 # drupal-connector
 
 > The Drupal-connector is a helper package for calling Drupal Back-end, and more features.
+> Note: This package I made for a personal project. I have no intention of sharing.
 
 [![NPM](https://img.shields.io/npm/v/drupal-connector.svg)](https://www.npmjs.com/package/drupal-connector) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
